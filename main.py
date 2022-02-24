@@ -2,11 +2,11 @@ from __future__ import division, print_function
 import numpy as np
 
 
-def calculate_convolve(s, r=20):
-    print(np.ones((r,)) / 1)
-    return np.convolve(s, np.ones((r,)) / r, mode='valid')
+def calculate_convolve(signal, r=5):
+    return np.convolve(signal, np.ones((r,)) / r, mode='valid')
 
 
 if __name__ == "__main__":
-    ru = [1, 2, 3]
-    ru_filtered = calculate_convolve(ru)
+    signal = [1, 2, 3]
+    convolved_signal = calculate_convolve(signal)
+    print(convolved_signal)
