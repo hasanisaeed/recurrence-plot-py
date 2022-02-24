@@ -27,8 +27,9 @@ if __name__ == "__main__":
     pylab.title("Raw Signal")
     pylab.subplot(211)
     pylab.plot(convolved_signal)
-    pylab.title("2D Image")
+
+    # pylab.title("2D Image")
     pylab.subplot(212)
 
     pylab.imshow(recurrence_plot(convolved_signal))
-    pylab.savefig('a.jpg')
+    pylab.savefig('result.jpg')
