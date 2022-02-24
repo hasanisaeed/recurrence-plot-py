@@ -21,7 +21,7 @@ def recurrence_plot(signal, eps=0.10, steps=3):
 
 
 if __name__ == "__main__":
-    raw_signal = [1, 2, 3, 4, 3, 2, 1, 2, 3, 4]
+    raw_signal = np.random.uniform(-1, 1, 1000)
     convolved_signal = calculate_convolve(raw_signal)
 
     pylab.title("Raw Signal")
