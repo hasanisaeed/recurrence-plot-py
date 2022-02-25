@@ -31,7 +31,7 @@ def save_plot():
     hspace = 0.21
 
     plt.subplots_adjust(left, bottom, right, top, wspace, hspace)
-    plt.savefig('result.jpg', bbox_inches='tight')
+    plt.savefig('results/result.jpg', bbox_inches='tight')
 
 
 class RecurrencePlot(object):
