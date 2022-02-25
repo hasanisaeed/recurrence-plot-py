@@ -4,3 +4,9 @@
 # Result
 
 ![](result.jpg)
+
+# Usage
+- Install requirements:
+    > pip install requirements.txt
+- Run `main.py` script:
+    > python3 main.py
