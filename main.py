@@ -5,26 +5,41 @@ from scipy.spatial.distance import pdist, squareform
 
 from utils import calculate_convolve
 
-
 # ----------------- Plot config -------------------------------------------
 SMALL = 8
 MEDIUM = 10
 BIGGER = 11
 
-plt.rc('font', size=SMALL)          # controls default text sizes
-plt.rc('axes', titlesize=SMALL)     # font size of the axes title
-plt.rc('axes', labelsize=MEDIUM)    # font size of the x and y labels
-plt.rc('xtick', labelsize=SMALL)    # font size of the tick labels
-plt.rc('ytick', labelsize=SMALL)    # font size of the tick labels
-plt.rc('legend', fontsize=SMALL)    # legend font size
+plt.rc('font', size=SMALL)  # controls default text sizes
+plt.rc('axes', titlesize=SMALL)  # font size of the axes title
+plt.rc('axes', labelsize=MEDIUM)  # font size of the x and y labels
+plt.rc('xtick', labelsize=SMALL)  # font size of the tick labels
+plt.rc('ytick', labelsize=SMALL)  # font size of the tick labels
+plt.rc('legend', fontsize=SMALL)  # legend font size
 plt.rc('figure', titlesize=BIGGER)  # font size of the figure title
+
+
 # -------------------------------------------------------------------------
+
+def save_plot():
+    left = 0.125
+    right = 0.9
+    bottom = 0.1
+    top = 0.9
+    wspace = 0.2
+    hspace = 0.3
+
+    plt.subplots_adjust(left, bottom, right, top, wspace, hspace)
+    plt.savefig('result.jpg', bbox_inches='tight')
 
 
 class RecurrencePlot(object):
-    def __init__(self, signal, row=2, col=2):
-        self.signal = signal
+    def __init__(self, row=2, col=2):
+        self.signal = []
         self.size = '%d%d' % (row, col)
+
+    def set_signal(self, signal):
+        self.signal = signal
 
     def recurrence_plot(self, eps=0.10, steps=3):
         _2d_array = self.signal[:, None]
@@ -35,24 +50,31 @@ class RecurrencePlot(object):
         distance[distance > steps] = steps
         return squareform(distance)
 
-    def subplot(self, x, is_signal=True, index=1, title=None, grid=True):
-        plt.subplot(int('%s%d' % (self.size, index)))
+    def subplot(self, x, is_signal=True, cell=1, title=None, grid=True):
+        plt.subplot(int('%s%d' % (self.size, cell)))
         plt.plot(x) if is_signal else plt.imshow(x)
         plt.title(title)
         plt.grid(grid)
 
-    def save(self):
+    def setup_plot(self, cell=1, signal_name='Raw Signal', image_name='2D Image'):
         # plot with various axes scales
-        plt.figure()
-        self.subplot(self.signal, index=1, title='Raw Signal')
-        self.subplot(self.recurrence_plot(), is_signal=False, index=2, title='2D Image')
-        self.subplot(self.signal, index=3, title='Raw Signal')
-        self.subplot(self.recurrence_plot(), is_signal=False, index=4, title='2D Image')
-        plt.savefig('result.jpg')
+        self.subplot(self.signal, cell=cell, title=signal_name)
+        self.subplot(self.recurrence_plot(), is_signal=False, cell=cell + 1, title=image_name)
 
 
 if __name__ == "__main__":
-    raw_signal = np.random.uniform(-1, 1, 500)
+    plt.figure()
+
+    rp = RecurrencePlot()
+
+    raw_signal = np.random.uniform(-1, 1, 50)
     convolved_signal = calculate_convolve(raw_signal)
-    rp = RecurrencePlot(convolved_signal)
-    rp.save()
+    rp.set_signal(convolved_signal)
+    rp.setup_plot(cell=1)
+
+    raw_signal = np.random.uniform(-1, 1, 50)
+    convolved_signal = calculate_convolve(raw_signal)
+    rp.set_signal(convolved_signal)
+    rp.setup_plot(cell=3)
+
+    save_plot()
