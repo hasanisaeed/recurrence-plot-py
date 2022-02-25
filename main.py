@@ -5,23 +5,23 @@ from scipy.spatial.distance import pdist, squareform
 
 from utils.convolve import calculate_convolve
 
-# ----------------- Plot config -------------------------------------------
+# ----------------- Plot config --------------------------------------- #
 SMALL = 8
 MEDIUM = 10
 BIGGER = 11
 
-plt.rc('font', size=SMALL)  # controls default text sizes
-plt.rc('axes', titlesize=SMALL)  # font size of the axes title
-plt.rc('axes', labelsize=MEDIUM)  # font size of the x and y labels
-plt.rc('xtick', labelsize=SMALL)  # font size of the tick labels
-plt.rc('ytick', labelsize=SMALL)  # font size of the tick labels
-plt.rc('legend', fontsize=SMALL)  # legend font size
+plt.rc('font', size=SMALL)          # controls default text sizes
+plt.rc('axes', titlesize=SMALL)     # font size of the axes title
+plt.rc('axes', labelsize=MEDIUM)    # font size of the x and y labels
+plt.rc('xtick', labelsize=SMALL)    # font size of the tick labels
+plt.rc('ytick', labelsize=SMALL)    # font size of the tick labels
+plt.rc('legend', fontsize=SMALL)    # legend font size
 plt.rc('figure', titlesize=BIGGER)  # font size of the figure title
 
 plt.rcParams["font.family"] = "Times", "Times New Roman", "serif"
 
 
-# -------------------------------------------------------------------------
+# --------------------------------------------------------------------- #
 
 def save_plot():
     left = 0.2
