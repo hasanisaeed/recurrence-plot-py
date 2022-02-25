@@ -75,7 +75,7 @@ if __name__ == "__main__":
 
     # cell value must be odd number
     # subplot 22(1,2)
-    rp.setup_plot(cell=1, signal_name='First Signal',  image_name='2D image for first signal')
+    rp.setup_plot(cell=1, signal_name='First Signal', image_name='2D image for first signal')
 
     raw_signal = np.random.uniform(-1, 1, 50)
     convolved_signal = calculate_convolve(raw_signal)
