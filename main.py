@@ -3,7 +3,7 @@ import numpy as np
 import pylab as plt
 from scipy.spatial.distance import pdist, squareform
 
-from utils import calculate_convolve
+from utils.convolve import calculate_convolve
 
 # ----------------- Plot config -------------------------------------------
 SMALL = 8
@@ -75,13 +75,13 @@ if __name__ == "__main__":
 
     # cell value must be odd number
     # subplot 22(1,2)
-    rp.setup_plot(cell=1, signal_name='First Signal')
+    rp.setup_plot(cell=1, signal_name='First Signal',  image_name='2D image for first signal')
 
     raw_signal = np.random.uniform(-1, 1, 50)
     convolved_signal = calculate_convolve(raw_signal)
     rp.set_signal(convolved_signal)
 
     # subplot 22(3,4)
-    rp.setup_plot(cell=3, signal_name='Second Signal')
+    rp.setup_plot(cell=3, signal_name='Second Signal', image_name='2D image for second signal')
 
     save_plot()
