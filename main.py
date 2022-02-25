@@ -17,6 +17,7 @@ plt.rc('xtick', labelsize=SMALL)  # font size of the tick labels
 plt.rc('ytick', labelsize=SMALL)  # font size of the tick labels
 plt.rc('legend', fontsize=SMALL)  # legend font size
 plt.rc('figure', titlesize=BIGGER)  # font size of the figure title
+plt.rcParams["font.family"] = "Times", "Times New Roman", "serif"
 
 
 # -------------------------------------------------------------------------
@@ -27,7 +28,7 @@ def save_plot():
     bottom = 0.1
     top = 0.9
     wspace = 0.2
-    hspace = 0.3
+    hspace = 0.21
 
     plt.subplots_adjust(left, bottom, right, top, wspace, hspace)
     plt.savefig('result.jpg', bbox_inches='tight')
@@ -42,6 +43,7 @@ class RecurrencePlot(object):
         self.signal = signal
 
     def recurrence_plot(self, eps=0.10, steps=3):
+        # Convert 1-D signal to 2-D signal
         _2d_array = self.signal[:, None]
 
         # Pairwise distances
@@ -63,18 +65,23 @@ class RecurrencePlot(object):
 
 
 if __name__ == "__main__":
-    plt.figure()
+    fig = plt.figure(figsize=(8, 6))
 
     rp = RecurrencePlot()
 
     raw_signal = np.random.uniform(-1, 1, 50)
     convolved_signal = calculate_convolve(raw_signal)
     rp.set_signal(convolved_signal)
-    rp.setup_plot(cell=1)
+
+    # cell value must be odd number
+    # subplot 22(1,2)
+    rp.setup_plot(cell=1, signal_name='First Signal')
 
     raw_signal = np.random.uniform(-1, 1, 50)
     convolved_signal = calculate_convolve(raw_signal)
     rp.set_signal(convolved_signal)
-    rp.setup_plot(cell=3)
+
+    # subplot 22(3,4)
+    rp.setup_plot(cell=3, signal_name='Second Signal')
 
     save_plot()
