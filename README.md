@@ -5,7 +5,10 @@
 ![](result.jpg)
 
 # Usage
-- Install requirements:
-    > pip install requirements.txt
-- Run `main.py` script:
-    > python3 main.py
+**1. Install requirements:**
+
+    pip install requirements.txt
+
+**2. Run `main.py` script:**
+
+    python3 main.py
