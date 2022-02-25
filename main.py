@@ -17,18 +17,19 @@ plt.rc('xtick', labelsize=SMALL)  # font size of the tick labels
 plt.rc('ytick', labelsize=SMALL)  # font size of the tick labels
 plt.rc('legend', fontsize=SMALL)  # legend font size
 plt.rc('figure', titlesize=BIGGER)  # font size of the figure title
+
 plt.rcParams["font.family"] = "Times", "Times New Roman", "serif"
 
 
 # -------------------------------------------------------------------------
 
 def save_plot():
-    left = 0.125
+    left = 0.2
     right = 0.9
     bottom = 0.1
     top = 0.9
     wspace = 0.2
-    hspace = 0.21
+    hspace = 0.1
 
     plt.subplots_adjust(left, bottom, right, top, wspace, hspace)
     plt.savefig('results/1D_to_2D.jpg', bbox_inches='tight')
@@ -37,6 +38,8 @@ def save_plot():
 class RecurrencePlot(object):
     def __init__(self, row=2, col=2):
         self.signal = []
+
+        # config pylab config for plot
         self.size = '%d%d' % (row, col)
 
     def set_signal(self, signal):
@@ -53,8 +56,12 @@ class RecurrencePlot(object):
         return squareform(distance)
 
     def subplot(self, x, is_signal=True, cell=1, title=None, grid=True):
-        plt.subplot(int('%s%d' % (self.size, cell)))
-        plt.plot(x) if is_signal else plt.imshow(x)
+        ax = plt.subplot(int('%s%d' % (self.size, cell)))
+        ax.grid(color='gray', linestyle='dotted', linewidth=0.5)
+        ax.spines['top'].set_visible(False)
+        ax.spines['right'].set_visible(False)
+
+        plt.plot(x, 'm', linewidth=1, ) if is_signal else plt.imshow(x)
         plt.title(title)
         plt.grid(grid)
 
@@ -65,23 +72,21 @@ class RecurrencePlot(object):
 
 
 if __name__ == "__main__":
-    fig = plt.figure(figsize=(8, 6))
+    # This is an example of how to give a signal to class `RecurrencePlot`.
+    # The input signal can be like [-1, 0.5, 1, ... 1.5].
 
-    rp = RecurrencePlot()
+    fig = plt.figure(figsize=(8, 2))
+    rp = RecurrencePlot(row=1, col=2)
 
+    # This is how I generated a signal with a length of 50.
     raw_signal = np.random.uniform(-1, 1, 50)
+
+    # Then I got the convolve signal. I finally drew it.
     convolved_signal = calculate_convolve(raw_signal)
     rp.set_signal(convolved_signal)
 
-    # cell value must be odd number
-    # subplot 22(1,2)
-    rp.setup_plot(cell=1, signal_name='First Signal', image_name='2D image for first signal')
-
-    raw_signal = np.random.uniform(-1, 1, 50)
-    convolved_signal = calculate_convolve(raw_signal)
-    rp.set_signal(convolved_signal)
-
-    # subplot 22(3,4)
-    rp.setup_plot(cell=3, signal_name='Second Signal', image_name='2D image for second signal')
+    # cell value must be odd number. You can create your own `setup_plot`
+    # subplot 11(1 | 2)
+    rp.setup_plot(cell=1, signal_name='Input Signal', image_name='2D image of Input Signal')
 
     save_plot()
