@@ -73,7 +73,7 @@ class RecurrencePlot(object):
 
 if __name__ == "__main__":
     # This is an example of how to give a signal to class `RecurrencePlot`.
-    # The input signal can be like [-1, 0.5, 1, ... 1.5].
+    # The input signal can be like [-1, 0.5, 1, ... ,1.5].
 
     fig = plt.figure(figsize=(8, 2))
     rp = RecurrencePlot(row=1, col=2)
